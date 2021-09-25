@@ -23,9 +23,9 @@ class LRUHashMap<T, U>(private val limit: Int) {
      * @param key key. PRE: key != null
      * @param value value. PRE: value != null
      */
-    fun add(key: T?, value: U?) {
-        check(key != null) { "Assert add. Can't add with null key" }
-        check(value != null) { "Assert add. Can't add with null value" }
+    fun add(key: T, value: U) {
+        check(map.size <= limit) {"Map limit was exceeded"}
+        check(list.size <= limit) {"List limit was exceeded"}
         if (map.containsKey(key)) {
             val node = map[key]!!
             list.remove(node)
@@ -42,6 +42,9 @@ class LRUHashMap<T, U>(private val limit: Int) {
                 size++
             }
         }
+        check(map.containsKey(key)) {"Key wasn't added"}
+        check(map.size <= limit) {"Map limit was exceeded"}
+        check(list.size <= limit) {"List limit was exceeded"}
     }
 
     /**
@@ -50,8 +53,7 @@ class LRUHashMap<T, U>(private val limit: Int) {
      * @param key key. PRE: key != null
      * @return value of key. If Key hasn't at cache, return null
      */
-    fun get(key: T?): U? {
-        check(key != null) { "Assert get. Can't get with null key" }
+    fun get(key: T): U? {
         return if (map.containsKey(key)) {
             val node = map[key]!!
             list.remove(node)

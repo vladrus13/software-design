@@ -47,8 +47,7 @@ class LinkedList<T> {
      * @param value value
      * @param function function to add node to list
      */
-    private fun add(value: T?, function: (Node<T>) -> Unit) {
-        check(value != null) { "Assertion add. Added value can't be null" }
+    private fun add(value: T, function: (Node<T>) -> Unit) {
         val newNode: Node<T> = Node(value)
         function(newNode)
         size++
@@ -69,7 +68,7 @@ class LinkedList<T> {
      *
      * @param value value
      */
-    fun addLeft(value: T?) {
+    fun addLeft(value: T) {
         add(value) {
             it.right = left
             if (left != null) {
@@ -77,6 +76,7 @@ class LinkedList<T> {
             }
             left = it
         }
+        check(getLeft()!!.value == value) { "Left wasn't added" }
     }
 
     /**
@@ -86,7 +86,7 @@ class LinkedList<T> {
      *
      * @param value value
      */
-    fun addRight(value: T?) {
+    fun addRight(value: T) {
         add(value) {
             it.left = right
             if (right != null) {
@@ -94,6 +94,7 @@ class LinkedList<T> {
             }
             right = it
         }
+        check(getRight()!!.value == value) { "Right wasn't added" }
     }
 
     /**
@@ -110,11 +111,13 @@ class LinkedList<T> {
                 val x = right!!.value
                 left = null
                 right = null
+                size--
                 x
             }
             else -> {
                 val x = node!!.value
                 function()
+                size--
                 x
             }
         }
@@ -144,7 +147,10 @@ class LinkedList<T> {
      * @return rightest element
      */
     fun removeRight(): T {
-        return removeEnd(right) { right = right!!.left }
+        val oldRight = getRight()
+        val returned = removeEnd(right) { right = right!!.left }
+        check(oldRight!!.value == returned)
+        return returned
     }
 
     /**
@@ -155,7 +161,10 @@ class LinkedList<T> {
      * @return rightest element
      */
     fun removeLeft(): T {
-        return removeEnd(left) { left = left!!.right }
+        val oldLeft = getLeft()
+        val returned = removeEnd(left) { left = left!!.right }
+        check(oldLeft!!.value == returned)
+        return returned
     }
 
     /**
@@ -166,8 +175,7 @@ class LinkedList<T> {
      * @param value value
      * @return removed value
      */
-    fun remove(value: Node<T>?): T {
-        check(value != null) { "Assertion remove. Removed value can't be null" }
+    fun remove(value: Node<T>): T {
         val leftPart = value.left
         val rightPart = value.right
         if (leftPart != null) {
@@ -178,6 +186,7 @@ class LinkedList<T> {
         }
         value.left = null
         value.right = null
+        size--
         return value.value
     }
 }
