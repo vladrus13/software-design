@@ -51,10 +51,4 @@ internal class LinkedListTest {
         (0..100).map { it.toString() }.forEach { linkedList.addRight(it) }
         (0..100).map { it.toString() }.forEach { assertEquals(it, linkedList.removeLeft()) }
     }
-
-    @Test(expected = IllegalStateException::class)
-    fun testAddNull() {
-        val linkedList = LinkedList<String>()
-        linkedList.addRight(null)
-    }
 }

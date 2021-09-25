@@ -33,19 +33,4 @@ internal class LRUHashMapTest {
             assertEquals(i.toString(), map.get(i))
         }
     }
-
-    @Test(expected = IllegalStateException::class)
-    fun testAddNullKey() {
-        LRUHashMap<Int, String>(10).add(null, "BAD :(")
-    }
-
-    @Test(expected = IllegalStateException::class)
-    fun testAddNullValue() {
-        LRUHashMap<Int, String>(10).add(0xBAD, null)
-    }
-
-    @Test(expected = IllegalStateException::class)
-    fun testNullGet() {
-        LRUHashMap<Int, String>(10).get(null)
-    }
 }
