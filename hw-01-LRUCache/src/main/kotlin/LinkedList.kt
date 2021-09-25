@@ -48,6 +48,7 @@ class LinkedList<T> {
      * @param function function to add node to list
      */
     private fun add(value: T, function: (Node<T>) -> Unit) {
+        check(size >= 0) {"Size must be not negative"}
         val newNode: Node<T> = Node(value)
         function(newNode)
         size++
@@ -176,6 +177,7 @@ class LinkedList<T> {
      * @return removed value
      */
     fun remove(value: Node<T>): T {
+        check(size >= 0) {"Size must be not negative"}
         val leftPart = value.left
         val rightPart = value.right
         if (leftPart != null) {
