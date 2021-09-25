@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm") version "1.5.30"
 }
 
-group = "me.user"
+group = "ru.vladrus13"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -12,7 +12,13 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.5.21")
+    implementation("com.vk.api:sdk:1.0.11")
+    implementation("org.slf4j:slf4j-jdk14:1.7.32")
+    implementation("org.jsoup:jsoup:1.14.2")
+    implementation("org.json:json:20210307")
+    testImplementation("com.xebialabs.restito:restito:0.9.4")
+
 }
 
 tasks.test {
