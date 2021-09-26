@@ -3,10 +3,10 @@ package ru.vladrus13.stupidmock
 import ru.vladrus13.popular.PopularStatisticSize
 import java.util.*
 
-class MockPopularStatistic(val set : TreeSet<Text>) : PopularStatisticSize() {
+class MockPopularStatistic(val set: TreeSet<Text>) : PopularStatisticSize() {
 
-    data class Text(val text : String = "", val time : Long) : Comparable<Text> {
-        override operator fun compareTo(other : Text) : Int {
+    data class Text(val text: String = "", val time: Long) : Comparable<Text> {
+        override operator fun compareTo(other: Text): Int {
             return if (this.time.compareTo(other.time) == 0) {
                 this.text.compareTo(other.text)
             } else {

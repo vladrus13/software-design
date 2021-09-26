@@ -8,6 +8,10 @@ import ru.vladrus13.popular.PopularStatisticSize
 import ru.vladrus13.reddit.RedditPopularStatistic
 import java.util.*
 
+/**
+ * Implementation of popular class with VK API
+ *
+ */
 class VkPopularStatistic : PopularStatisticSize() {
 
     private val vkApiClient: VkApiClient

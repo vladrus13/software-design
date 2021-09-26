@@ -5,19 +5,13 @@ import com.xebialabs.restito.semantics.Action
 import com.xebialabs.restito.server.StubServer
 import org.junit.Test
 import ru.vladrus13.TestUtils.Companion.assertList
-import ru.vladrus13.popular.PopularStatistic
 import ru.vladrus13.reddit.RedditPopularStatistic
-import ru.vladrus13.vk.VkPopularStatistic
 import java.util.*
 
 class PopularStatisticTest {
-    private val vkPopularStatistic = VkPopularStatistic()
     private val redditPopularStatistic = object : RedditPopularStatistic() {
         override val url: String = "http://localhost:8098/"
     }
-    private val statistics: List<PopularStatistic> = listOf(
-        vkPopularStatistic, redditPopularStatistic
-    )
 
     @Test
     fun testOneEmpty() {
@@ -32,7 +26,7 @@ class PopularStatisticTest {
 
     @Test
     fun testStorm() =
-        (0..24).forEach {
+        repeat(24) {
             val server = StubServer(8098)
             whenHttp(server).match().then(
                 Action.stringContent(JsonConstructor.getTexts().toString())
