@@ -2,14 +2,15 @@ package ru.akirakozov.sd.refactoring.servlet;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * @author akirakozov
  */
 public class AddProductServlet extends ExecuteServlet {
 
-    public AddProductServlet(String connectionDatabase) {
-        super(connectionDatabase);
+    public AddProductServlet(String connectionDatabase, Logger logger) {
+        super(connectionDatabase, logger);
     }
 
     @Override

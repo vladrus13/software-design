@@ -23,24 +23,17 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ServletTest {
+public class StableServerTest {
 
     public static final ExecutorService executorService = Executors.newSingleThreadExecutor();
-    public static Logger logger = Logger.getLogger(ServletTest.class.getName());
 
     @BeforeClass
     public static void beforeAll() {
-        try {
-            LogManager.getLogManager().readConfiguration(ServletTest.class.getResourceAsStream("/logging_test.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         executorService.submit(() -> {
             try {
                 Main.main(new String[]{});

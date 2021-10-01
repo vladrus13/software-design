@@ -4,14 +4,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 /**
  * @author akirakozov
  */
 public class QueryServlet extends MethodServlet {
 
-    public QueryServlet(String connectionDatabase) {
-        super(connectionDatabase);
+    public QueryServlet(String connectionDatabase, Logger logger) {
+        super(connectionDatabase, logger);
     }
 
     @Override

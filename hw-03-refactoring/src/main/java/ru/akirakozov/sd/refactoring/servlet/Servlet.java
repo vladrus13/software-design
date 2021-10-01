@@ -9,13 +9,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public abstract class Servlet extends HttpServlet {
 
     protected final String connectionDatabase;
+    protected final Logger logger;
 
-    public Servlet(String connectionDatabase) {
+    public Servlet(String connectionDatabase, Logger logger) {
         this.connectionDatabase = connectionDatabase;
+        this.logger = logger;
     }
 
     protected Parameters parse(HttpServletRequest request) {

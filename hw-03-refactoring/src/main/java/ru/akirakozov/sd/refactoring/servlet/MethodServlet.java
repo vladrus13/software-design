@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 
 public abstract class MethodServlet extends Servlet {
 
-    public MethodServlet(String connectionDatabase) {
-        super(connectionDatabase);
+    public MethodServlet(String connectionDatabase, Logger logger) {
+        super(connectionDatabase, logger);
     }
 
     protected abstract String getQuery(Parameters parameters);
