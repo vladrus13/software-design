@@ -26,8 +26,8 @@ public class QueryServlet extends HttpServlet {
                     response.getWriter().println("<h1>Product with max price: </h1>");
 
                     while (rs.next()) {
-                        String  name = rs.getString("name");
-                        int price  = rs.getInt("price");
+                        String name = rs.getString("name");
+                        int price = rs.getInt("price");
                         response.getWriter().println(name + "\t" + price + "</br>");
                     }
                     response.getWriter().println("</body></html>");
@@ -48,8 +48,8 @@ public class QueryServlet extends HttpServlet {
                     response.getWriter().println("<h1>Product with min price: </h1>");
 
                     while (rs.next()) {
-                        String  name = rs.getString("name");
-                        int price  = rs.getInt("price");
+                        String name = rs.getString("name");
+                        int price = rs.getInt("price");
                         response.getWriter().println(name + "\t" + price + "</br>");
                     }
                     response.getWriter().println("</body></html>");
