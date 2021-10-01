@@ -31,9 +31,8 @@ import static org.junit.Assert.assertTrue;
 
 public class ServletTest {
 
-    public static Logger logger = Logger.getLogger(ServletTest.class.getName());
-
     public static final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    public static Logger logger = Logger.getLogger(ServletTest.class.getName());
 
     @BeforeClass
     public static void beforeAll() {
