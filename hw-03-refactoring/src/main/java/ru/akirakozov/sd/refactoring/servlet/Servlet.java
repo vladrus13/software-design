@@ -29,7 +29,8 @@ public abstract class Servlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        logger.info("Get request: " + request.toString());
+        try (Connection connection = DriverManager.getConnection(connectionDatabase)) {
             Statement statement = connection.createStatement();
             Parameters parameters = parse(request);
             statementGet(parameters, statement, response);

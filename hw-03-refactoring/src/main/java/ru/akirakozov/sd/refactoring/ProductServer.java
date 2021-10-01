@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class ProductServer {
     private final String connectionDatabase;
-    private final int port;
+    public final int port;
     ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static Logger logger = Logger.getLogger(ProductServer.class.getName());
@@ -27,33 +27,33 @@ public class ProductServer {
     public ProductServer(String connectionDatabase, int port) throws IOException {
         this.connectionDatabase = connectionDatabase;
         this.port = port;
-        LogManager.getLogManager().readConfiguration(ProductServer.class.getResourceAsStream("/logging_database.properties"));
+        run();
     }
 
-    public void run() {
+    private void run() throws IOException {
+        LogManager.getLogManager().readConfiguration(ProductServer.class.getResourceAsStream("/logging_database.properties"));
         logger.info(String.format("Started server at port %d and database %s", port, connectionDatabase));
+        try (Connection c = DriverManager.getConnection(connectionDatabase)) {
+            String sql = "CREATE TABLE IF NOT EXISTS PRODUCT" +
+                    "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    " NAME           TEXT    NOT NULL, " +
+                    " PRICE          INT     NOT NULL)";
+            Statement stmt = c.createStatement();
+
+            stmt.executeUpdate(sql);
+            stmt.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        Server server = new Server(port);
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
+        server.setHandler(context);
+
+        context.addServlet(new ServletHolder(new AddProductServlet(connectionDatabase, logger)), "/add-product");
+        context.addServlet(new ServletHolder(new GetProductsServlet(connectionDatabase, logger)), "/get-products");
+        context.addServlet(new ServletHolder(new QueryServlet(connectionDatabase, logger)), "/query");
         executorService.submit(() -> {
-            try (Connection c = DriverManager.getConnection(connectionDatabase)) {
-                String sql = "CREATE TABLE IF NOT EXISTS PRODUCT" +
-                        "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                        " NAME           TEXT    NOT NULL, " +
-                        " PRICE          INT     NOT NULL)";
-                Statement stmt = c.createStatement();
-
-                stmt.executeUpdate(sql);
-                stmt.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            Server server = new Server(port);
-
-            ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-            context.setContextPath("/");
-            server.setHandler(context);
-
-            context.addServlet(new ServletHolder(new AddProductServlet(connectionDatabase, logger)), "/add-product");
-            context.addServlet(new ServletHolder(new GetProductsServlet(connectionDatabase, logger)), "/get-products");
-            context.addServlet(new ServletHolder(new QueryServlet(connectionDatabase, logger)), "/query");
 
             try {
                 server.start();
