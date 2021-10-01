@@ -9,6 +9,7 @@ import org.junit.Test;
 import ru.akirakozov.sd.refactoring.Main;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -17,12 +18,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertTrue;
 
 public class ServletTest {
 
@@ -81,7 +85,12 @@ public class ServletTest {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
                 .build();
-        return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+        while (true) {
+            try {
+                return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+            } catch (ConnectException ignored) {
+            }
+        }
     }
 
     @Test
@@ -98,14 +107,19 @@ public class ServletTest {
         sendRequest("http://localhost:8081/add-product?name=nokia_heh&price=19");
         String body = sendRequest("http://localhost:8081/get-products");
         Element element = Jsoup.parse(body).body();
-        List<String[]> list = element.childNodes().stream()
+        Set<String[]> set = element.childNodes().stream()
                 .filter(it -> it instanceof TextNode)
                 .map(it -> (TextNode) it)
                 .map(TextNode::getWholeText)
                 .filter(it -> !it.isBlank())
                 .map(String::trim)
                 .map(it -> it.split("\\s(?=\\b(\\d+(?:\\.\\d+)?)$)"))
-                .collect(Collectors.toList());
-
+                .map(it -> Arrays.stream(it).map(String::trim).collect(Collectors.toList()).toArray(new String[]{}))
+                .collect(Collectors.toSet());
+        assertTrue(set.stream().allMatch(it ->
+                (it[0].equals("apple_heh") && it[1].equals("100")) ||
+                        (it[0].equals("samsung_heh") && it[1].equals("78")) ||
+                        (it[0].equals("xiomi_heh") && it[1].equals("18")) ||
+                        (it[0].equals("nokia_heh") && it[1].equals("19"))));
     }
 }
