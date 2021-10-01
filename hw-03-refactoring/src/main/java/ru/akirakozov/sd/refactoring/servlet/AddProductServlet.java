@@ -8,6 +8,10 @@ import java.io.IOException;
  */
 public class AddProductServlet extends ExecuteServlet {
 
+    public AddProductServlet(String connectionDatabase) {
+        super(connectionDatabase);
+    }
+
     @Override
     protected String getUpdate(Parameters parameters) {
         String name = parameters.parameters.get("name")[0];

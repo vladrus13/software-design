@@ -12,6 +12,12 @@ import java.util.Map;
 
 public abstract class Servlet extends HttpServlet {
 
+    protected final String connectionDatabase;
+
+    public Servlet(String connectionDatabase) {
+        this.connectionDatabase = connectionDatabase;
+    }
+
     protected Parameters parse(HttpServletRequest request) {
         return new Parameters(request);
     }

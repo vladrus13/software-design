@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public abstract class ExecuteServlet extends Servlet {
+    public ExecuteServlet(String connectionDatabase) {
+        super(connectionDatabase);
+    }
+
     protected abstract String getUpdate(Parameters parameters);
 
     protected abstract void updateResponse(Parameters parameters, HttpServletResponse response) throws IOException;

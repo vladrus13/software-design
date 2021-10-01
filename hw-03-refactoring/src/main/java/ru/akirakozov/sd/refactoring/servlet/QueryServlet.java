@@ -1,14 +1,18 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author akirakozov
  */
 public class QueryServlet extends MethodServlet {
+
+    public QueryServlet(String connectionDatabase) {
+        super(connectionDatabase);
+    }
 
     @Override
     protected String getQuery(Parameters parameters) {
