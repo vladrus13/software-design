@@ -1,9 +1,5 @@
 package ru.akirakozov.sd.refactoring;
 
-import org.eclipse.jetty.server.Server;
-
-import java.io.IOException;
-
 /**
  * @author akirakozov
  */

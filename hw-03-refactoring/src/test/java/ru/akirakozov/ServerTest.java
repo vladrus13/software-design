@@ -5,7 +5,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.akirakozov.sd.refactoring.ProductServer;
 
@@ -27,6 +26,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ServerTest {
+
+    private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
+    private final Random random = new Random();
 
     @BeforeClass
     public static void beforeAll() throws IOException {
@@ -168,9 +170,6 @@ public class ServerTest {
                 "5");
         stopServer(productServer);
     }
-
-    private final Random random = new Random();
-    private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
 
     public String generateRandomString() {
         int length = random.nextInt(6) + 4;

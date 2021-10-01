@@ -18,11 +18,10 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class ProductServer {
-    private final String connectionDatabase;
-    public final int port;
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
-
     public static Logger logger = Logger.getLogger(ProductServer.class.getName());
+    public final int port;
+    private final String connectionDatabase;
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public ProductServer(String connectionDatabase, int port) throws IOException {
         this.connectionDatabase = connectionDatabase;
