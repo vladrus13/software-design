@@ -10,7 +10,10 @@ import java.util.logging.Logger;
  * @author akirakozov
  */
 public class QueryServlet extends MethodServlet {
-
+    /**
+     * @param connectionDatabase address where we send to database
+     * @param logger             logger of server
+     */
     public QueryServlet(String connectionDatabase, Logger logger) {
         super(connectionDatabase, logger);
     }

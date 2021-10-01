@@ -25,16 +25,19 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("JavaDoc")
 public class ServerTest {
 
     private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
     private final Random random = new Random();
 
+    @SuppressWarnings("JavaDoc")
     @BeforeClass
     public static void beforeAll() throws IOException {
         Files.createDirectories(Path.of("tests-db"));
     }
 
+    @SuppressWarnings("JavaDoc")
     @AfterClass
     public static void afterAll() throws IOException {
         Files.walkFileTree(Path.of("tests-db"), new SimpleFileVisitor<>() {
@@ -52,6 +55,7 @@ public class ServerTest {
         });
     }
 
+    @SuppressWarnings("JavaDoc")
     public ProductServer startServer() {
         Path path = Path.of("tests-db");
         int port = 8082;
@@ -69,6 +73,7 @@ public class ServerTest {
         }
     }
 
+    @SuppressWarnings("JavaDoc")
     public void stopServer(ProductServer productServer) throws IOException {
         int port = productServer.port;
         productServer.stop();
@@ -76,6 +81,7 @@ public class ServerTest {
         Files.delete(table);
     }
 
+    @SuppressWarnings("JavaDoc")
     @Test
     public void testEmpty() throws IOException {
         ProductServer productServer = startServer();
@@ -105,6 +111,7 @@ public class ServerTest {
         return sendRequest(request);
     }
 
+    @SuppressWarnings("JavaDoc")
     @Test
     public void testAdd() throws Exception {
         ProductServer productServer = startServer();
@@ -114,6 +121,7 @@ public class ServerTest {
         stopServer(productServer);
     }
 
+    @SuppressWarnings("JavaDoc")
     @Test
     public void testAddAndCheck() throws IOException, InterruptedException {
         ProductServer productServer = startServer();
@@ -140,14 +148,17 @@ public class ServerTest {
         stopServer(productServer);
     }
 
+    @SuppressWarnings("JavaDoc")
     public String getCommand(String answer) {
         return Jsoup.parse(answer).body().childNodes().get(2).toString().trim().split("\\s(?=\\b(\\d+(?:\\.\\d+)?)$)")[1];
     }
 
+    @SuppressWarnings("JavaDoc")
     public String getEdit(String answer, int number) {
         return Jsoup.parse(answer).body().childNodes().get(0).toString().split(" ")[number];
     }
 
+    @SuppressWarnings("JavaDoc")
     @Test
     public void testFunctions() throws IOException, InterruptedException {
         ProductServer productServer = startServer();
@@ -171,6 +182,7 @@ public class ServerTest {
         stopServer(productServer);
     }
 
+    @SuppressWarnings("JavaDoc")
     public String generateRandomString() {
         int length = random.nextInt(6) + 4;
         StringBuilder stringBuilder = new StringBuilder();
@@ -180,6 +192,7 @@ public class ServerTest {
         return stringBuilder.toString();
     }
 
+    @SuppressWarnings("JavaDoc")
     @Test
     public void testBigFunctions() throws IOException, InterruptedException {
         ProductServer productServer = startServer();

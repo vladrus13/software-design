@@ -17,12 +17,31 @@ import java.util.concurrent.Executors;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+/**
+ * Server, answering by servlets
+ *
+ * @author vladrus13
+ */
 public class ProductServer {
-    public static Logger logger = Logger.getLogger(ProductServer.class.getName());
+    /**
+     * Main logger of server
+     */
+    public static final Logger logger = Logger.getLogger(ProductServer.class.getName());
+    /**
+     * Server's port
+     */
     public final int port;
+    /**
+     * Service we launch server
+     */
+    final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final String connectionDatabase;
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+    /**
+     * @param connectionDatabase address where we send to database
+     * @param port               port where server launch
+     * @throws IOException if we got exception on creating database
+     */
     public ProductServer(String connectionDatabase, int port) throws IOException {
         this.connectionDatabase = connectionDatabase;
         this.port = port;
@@ -63,6 +82,9 @@ public class ProductServer {
         });
     }
 
+    /**
+     * Stops server
+     */
     public void stop() {
         logger.info(String.format("Stopped server at port %d and database %s", port, connectionDatabase));
         executorService.shutdown();

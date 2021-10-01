@@ -9,6 +9,10 @@ import java.util.logging.Logger;
  */
 public class AddProductServlet extends ExecuteServlet {
 
+    /**
+     * @param connectionDatabase address where we send to database
+     * @param logger             logger of server
+     */
     public AddProductServlet(String connectionDatabase, Logger logger) {
         super(connectionDatabase, logger);
     }
