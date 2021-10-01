@@ -27,6 +27,18 @@ public abstract class Servlet extends HttpServlet {
 
     protected abstract void statementGet(Parameters parameters, Statement statement, HttpServletResponse response) throws SQLException, IOException;
 
+    public void sendBeginHTML(HttpServletResponse response) throws IOException {
+        sendLineHtml(response, "<html><body>");
+    }
+
+    public void sendEndHTML(HttpServletResponse response) throws IOException {
+        sendLineHtml(response, "</body></html>");
+    }
+
+    public void sendLineHtml(HttpServletResponse response, String s) throws IOException {
+        response.getWriter().println(s);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("Get request: " + request.toString());

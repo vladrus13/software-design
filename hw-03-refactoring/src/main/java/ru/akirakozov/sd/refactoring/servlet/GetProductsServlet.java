@@ -22,12 +22,12 @@ public class GetProductsServlet extends MethodServlet {
 
     @Override
     protected void updateResponse(Parameters parameters, ResultSet resultSet, HttpServletResponse response) throws IOException, SQLException {
-        response.getWriter().println("<html><body>");
+        sendBeginHTML(response);
         while (resultSet.next()) {
             String name = resultSet.getString("name");
             int price = resultSet.getInt("price");
-            response.getWriter().println(name + "\t" + price + "</br>");
+            sendLineHtml(response, name + "\t" + price + "</br>");
         }
-        response.getWriter().println("</body></html>");
+        sendEndHTML(response);
     }
 }

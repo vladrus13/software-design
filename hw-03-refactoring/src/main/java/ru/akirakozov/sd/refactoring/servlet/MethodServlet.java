@@ -25,12 +25,12 @@ public abstract class MethodServlet extends Servlet {
     protected void statementGet(Parameters parameters, Statement statement, HttpServletResponse response) throws SQLException, IOException {
         String query = getQuery(parameters);
         if (query == null) {
-            response.getWriter().println("<html><body>");
+            sendBeginHTML(response);
             String invalidAnswer = getInvalidAnswer();
             if (invalidAnswer != null) {
-                response.getWriter().println(invalidAnswer);
+                sendLineHtml(response, invalidAnswer);
             }
-            response.getWriter().println("</body></html>");
+            sendEndHTML(response);
         } else {
             ResultSet resultSet = statement.executeQuery(getQuery(parameters));
             updateResponse(parameters, resultSet, response);

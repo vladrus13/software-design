@@ -40,39 +40,39 @@ public class QueryServlet extends MethodServlet {
     @Override
     protected void updateResponse(Parameters parameters, ResultSet resultSet, HttpServletResponse response) throws IOException, SQLException {
         String command = parameters.parameters.get("command")[0];
-        response.getWriter().println("<html><body>");
+        sendBeginHTML(response);
         switch (command) {
             case "max":
-                response.getWriter().println("<h1>Product with max price: </h1>");
+                sendLineHtml(response, "<h1>Product with max price: </h1>");
                 while (resultSet.next()) {
                     String name = resultSet.getString("name");
                     int price = resultSet.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    sendLineHtml(response, name + "\t" + price + "</br>");
                 }
                 break;
             case "min":
-                response.getWriter().println("<h1>Product with min price: </h1>");
+                sendLineHtml(response, "<h1>Product with min price: </h1>");
                 while (resultSet.next()) {
                     String name = resultSet.getString("name");
                     int price = resultSet.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    sendLineHtml(response, name + "\t" + price + "</br>");
                 }
                 break;
             case "sum":
-                response.getWriter().println("Summary price: ");
+                sendLineHtml(response, "Summary price: ");
                 if (resultSet.next()) {
-                    response.getWriter().println(resultSet.getInt(1));
+                    sendLineHtml(response, String.valueOf(resultSet.getInt(1)));
                 }
                 break;
             case "count":
-                response.getWriter().println("Number of products: ");
+                sendLineHtml(response, "Number of products: ");
                 if (resultSet.next()) {
-                    response.getWriter().println(resultSet.getInt(1));
+                    sendLineHtml(response, String.valueOf(resultSet.getInt(1)));
                 }
                 break;
             default:
                 throw new IllegalStateException("Getting response from invalid parameters");
         }
-        response.getWriter().println("</body></html>");
+        sendEndHTML(response);
     }
 }

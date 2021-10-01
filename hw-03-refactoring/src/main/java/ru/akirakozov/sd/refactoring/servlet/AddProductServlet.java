@@ -24,6 +24,6 @@ public class AddProductServlet extends ExecuteServlet {
     protected void updateResponse(Parameters parameters, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("OK");
+        sendLineHtml(response, "OK");
     }
 }
