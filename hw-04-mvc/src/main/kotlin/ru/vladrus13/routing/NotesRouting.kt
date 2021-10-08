@@ -10,6 +10,14 @@ import ru.vladrus13.data.DatabaseManager
 import ru.vladrus13.model.Note
 import ru.vladrus13.model.UserSession
 
+fun sendMethodButton(div : DIV, action : String, valueButton : String) {
+    div.form(method = FormMethod.post, encType = FormEncType.multipartFormData, action = action) {
+        submitInput(classes = "pure-button pure-button-primary") {
+            value = valueButton
+        }
+    }
+}
+
 fun note(note: Note, f: BODY) {
     f.div(classes = "note") {
         style = "background-color:${if (note.isDone) "green" else "yellow"}; max-width: 40rem; min-width: 40rem; border: 1px solid black"
@@ -111,37 +119,15 @@ fun Application.notesRouting() {
                     }
                     div {
                         +"Сортировать: "
-                        form(method = FormMethod.post, encType = FormEncType.multipartFormData, action = "sortBy/id") {
-                            submitInput(classes = "pure-button pure-button-primary") {
-                                value = "по id"
-                            }
-                        }
-                        form(method = FormMethod.post, encType = FormEncType.multipartFormData, action = "sortBy/priority") {
-                            submitInput(classes = "pure-button pure-button-primary") {
-                                value = "по priority"
-                            }
-                        }
+                        sendMethodButton(this, "sortBy/id", "по id")
+                        sendMethodButton(this, "sortBy/priority", "по priority")
                     }
                     div {
                         +"Показывать: "
-                        form(method = FormMethod.post, encType = FormEncType.multipartFormData, action = "filter/done") {
-                            submitInput(classes = "pure-button pure-button-primary") {
-                                value = "Сделанные"
-                            }
-                        }
-                        form(method = FormMethod.post, encType = FormEncType.multipartFormData, action = "filter/!done") {
-                            submitInput(classes = "pure-button pure-button-primary") {
-                                value = "Несделанные"
-                            }
-                        }
-                        form(method = FormMethod.post, encType = FormEncType.multipartFormData, action = "filter/both") {
-                            submitInput(classes = "pure-button pure-button-primary") {
-                                value = "Все"
-                            }
-                        }
-
+                        sendMethodButton(this, "filter/done", "Сделанные")
+                        sendMethodButton(this, "filter/!done", "Несделанные")
+                        sendMethodButton(this, "filter/both", "Все")
                     }
-
                     notes(this, sortBy, filter)
                 }
             }
