@@ -25,6 +25,7 @@ class DatabaseManager {
             val title = varchar("title", 63)
             val text = text("text")
             val priority = integer("priority")
+            val isDone = bool("is_done")
         }
 
         fun getAll() : List<Note> {
@@ -43,6 +44,7 @@ class DatabaseManager {
             it[Notes.title] = o.title
             it[Notes.text] = o.text
             it[Notes.priority] = o.priority
+            it[Notes.isDone] = o.isDone
         }
 
         fun put(o : Note) {
@@ -59,7 +61,7 @@ class DatabaseManager {
                         set(o, it)
                     }[Notes.id]
                 } else {
-                    Notes.update {
+                    Notes.update({Notes.id eq o.id!!}) {
                         set(o, it)
                     }
                 }
@@ -67,7 +69,7 @@ class DatabaseManager {
         }
 
         private fun get(resultRow: ResultRow) : Note = Note(
-            resultRow[Notes.id], resultRow[Notes.title], resultRow[Notes.text], resultRow[Notes.priority]
+            resultRow[Notes.id], resultRow[Notes.title], resultRow[Notes.text], resultRow[Notes.priority], resultRow[Notes.isDone]
         )
 
         fun get(id : Long) : Note? {
@@ -81,6 +83,12 @@ class DatabaseManager {
                 }
             }
             return note
+        }
+
+        fun delete(id : Long) {
+            transaction(connection) {
+                Notes.deleteWhere { Notes.id eq id }
+            }
         }
     }
 }

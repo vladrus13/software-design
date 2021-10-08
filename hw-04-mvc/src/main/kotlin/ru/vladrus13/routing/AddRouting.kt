@@ -23,6 +23,7 @@ fun Application.addRouting() {
                     form(method = FormMethod.post, encType = FormEncType.multipartFormData) {
                         +"Название: "
                         textInput(name = "title"){
+                            maxLength = 60.toString()
                             required = true
                         }
                         br()

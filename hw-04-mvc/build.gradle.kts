@@ -12,12 +12,15 @@ application {
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers") }
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") }
 }
 
 dependencies {
     implementation("io.ktor:ktor-server-core:1.6.4")
+    implementation("io.ktor:ktor-server-sessions:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.3")
     implementation("io.ktor:ktor-html-builder:1.6.4")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-css:1.0.0-pre.254-kotlin-1.5.31")
     implementation("org.jetbrains:kotlin-css-jvm:1.0.0-pre.129-kotlin-1.4.20")
     implementation("io.ktor:ktor-server-netty:1.6.4")
     implementation("ch.qos.logback:logback-classic:1.2.6")
