@@ -63,7 +63,7 @@ fun Application.addRouting() {
                 text = text,
                 priority = priority)
             DatabaseManager.put(note)
-            call.respondRedirect(url = "http://localhost:8080/note/${note.id}")
+            call.respondRedirect(url = "/note/${note.id}")
         }
     }
 }

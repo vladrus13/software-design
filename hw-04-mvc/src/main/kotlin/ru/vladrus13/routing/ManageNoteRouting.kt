@@ -10,7 +10,7 @@ fun Application.manageNoteRoutes() {
         post("/delete/{id}") {
             val id = call.parameters["id"]!!.toLong()
             DatabaseManager.delete(id)
-            call.respondRedirect("http://localhost:8080/notes")
+            call.respondRedirect("/notes")
         }
 
         post("/switch/{id}") {
@@ -20,7 +20,7 @@ fun Application.manageNoteRoutes() {
                 note.isDone = true
                 DatabaseManager.put(note)
             }
-            call.respondRedirect("http://localhost:8080/notes")
+            call.respondRedirect("/notes")
         }
     }
 }
