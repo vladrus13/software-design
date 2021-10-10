@@ -4,15 +4,22 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.transactions.transaction
 import ru.vladrus13.model.Note
+import java.util.*
 
 class DatabaseManager {
     companion object {
-        private val connection = Database.connect(
-            "jdbc:mysql://localhost:3306/softwaredesign4hw",
-            driver = "com.mysql.cj.jdbc.Driver",
-            user = "softwaredesign",
-            password = "softwaredesign"
-        )
+        private val connection : Database
+
+        init {
+            val properties = Properties()
+            properties.load(DatabaseManager::class.java.getResourceAsStream("/database.properties"))
+            connection = Database.connect(
+                properties.getProperty("url")!!,
+                driver = properties.getProperty("driver"),
+                user = properties.getProperty("user"),
+                password = properties.getProperty("password")
+            )
+        }
 
         fun init() {
             transaction(connection) {
