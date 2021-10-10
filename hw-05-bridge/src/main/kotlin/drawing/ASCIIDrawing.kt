@@ -11,13 +11,13 @@ class ASCIIDrawing : DrawingApi {
     private val gr = '■'
     private val empty = ' '
 
-    private val picture = MutableList(height) { MutableList(width) {empty} }
+    private val picture = MutableList(height) { MutableList(width) { empty } }
 
     override fun getDrawingAreaWidth(): Long = width.toLong()
 
     override fun getDrawingAreaHeight(): Long = height.toLong()
 
-    private fun fillSpace(point: Point, symbol : Char) {
+    private fun fillSpace(point: Point, symbol: Char) {
         if (picture[point.y][point.x] == empty) {
             picture[point.y][point.x] = symbol
         }

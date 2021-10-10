@@ -8,7 +8,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 abstract class CircleGraph(private val drawingApi: DrawingApi) : Graph(drawingApi) {
-    fun getCircle(n : Int) : List<Point> {
+    fun getCircle(n: Int): List<Point> {
         val angle = PI * 2 / n
         val size = (min(drawingApi.getDrawingAreaHeight(), drawingApi.getDrawingAreaWidth()) - 10) / 2
         val start = Point(size.toInt(), size.toInt())

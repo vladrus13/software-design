@@ -6,26 +6,25 @@ import graph.Graph
 import graph.MatrixGraph
 import java.nio.file.Files
 import java.nio.file.Path
-import kotlin.reflect.KClass
 
 class Instructor {
     companion object {
-        private val drawings : Map<String, () -> DrawingApi> = hashMapOf(
+        private val drawings: Map<String, () -> DrawingApi> = hashMapOf(
             Pair("ASCII") { ASCIIDrawing() },
             Pair("Image") { ImageDrawing() },
-            )
+        )
 
-        private val graphs : Map<String, (Path, DrawingApi) -> Graph> = hashMapOf(
+        private val graphs: Map<String, (Path, DrawingApi) -> Graph> = hashMapOf(
             Pair("Matrix") { path, api -> MatrixGraph(api, path) },
             Pair("Edge") { path, api -> EdgeGraph(api, path) }
         )
 
-        private val files : Map<String, Path> = hashMapOf(
+        private val files: Map<String, Path> = hashMapOf(
             Pair("Matrix", Path.of("graphs").resolve("matrix.txt")),
             Pair("Edge", Path.of("graphs").resolve("edges.txt"))
-            )
+        )
 
-        private fun adapt(filePath : Path? = null, path : Path, drawing : String, graph : String) {
+        private fun adapt(filePath: Path? = null, path: Path, drawing: String, graph: String) {
             val realFilePath = filePath ?: files[graph]!!
             val drawingInstance = drawings[drawing]!!
             val graphInstance = graphs[graph]!!
