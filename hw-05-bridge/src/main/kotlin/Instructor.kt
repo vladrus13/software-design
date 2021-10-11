@@ -24,7 +24,7 @@ class Instructor {
             Pair("Edge", Path.of("graphs").resolve("edges.txt"))
         )
 
-        private fun adapt(filePath: Path? = null, path: Path, drawing: String, graph: String) {
+        fun adapt(filePath: Path? = null, path: Path, drawing: String, graph: String) {
             val realFilePath = filePath ?: files[graph]!!
             val drawingInstance = drawings[drawing]!!
             val graphInstance = graphs[graph]!!
