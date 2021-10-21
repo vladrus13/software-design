@@ -24,7 +24,7 @@ class BinaryOperation(
 
     override fun toPolska(): LinkedList<Token> = LinkedList<Token>().apply {
         addAll(left.toPolska())
-        add(operation)
         addAll(right.toPolska())
+        add(operation)
     }
 }

@@ -4,7 +4,7 @@ import ru.vladrus13.Tokenizer
 import ru.vladrus13.bean.*
 import ru.vladrus13.bean.Number
 
-class Parser(val tokenizer: Tokenizer) {
+class Parser(private val tokenizer: Tokenizer) {
 
     private fun parseMono(): Operator {
         val token = tokenizer.get() ?: throw IllegalStateException("Missing mono")
@@ -28,31 +28,42 @@ class Parser(val tokenizer: Tokenizer) {
         }
     }
 
-    fun parseMultiplyDivide(): Operator {
-        val first = parseMono()
-        return when (val operator = tokenizer.get()) {
-            is MultiplyOperation, is DivideOperation -> {
-                tokenizer.next()
-                val second = parseMono()
-                BinaryOperation(first, operator as BinaryOperationToken, second)
+    private fun parseMultiplyDivide(): Operator {
+        var result = parseMono()
+        var operator = tokenizer.get()
+        while (true) {
+            when (operator) {
+                is MultiplyOperation, is DivideOperation -> {
+                    tokenizer.next()
+                    val second = parseMono()
+                    result = BinaryOperation(result, operator as BinaryOperationToken, second)
+                    operator = tokenizer.get()
+                }
+                else -> break
             }
-            else -> first
         }
+        return result
     }
 
     private fun parsePlusMinus(): Operator {
-        val first = parseMono()
-        return when (val operator = tokenizer.get()) {
-            is PlusOperation, is MinusOperation -> {
-                tokenizer.next()
-                val second = parseMono()
-                BinaryOperation(first, operator as BinaryOperationToken, second)
+        var result = parseMultiplyDivide()
+        var operator = tokenizer.get()
+        while (true) {
+            when (operator) {
+                is PlusOperation, is MinusOperation -> {
+                    tokenizer.next()
+                    val second = parseMultiplyDivide()
+                    result = BinaryOperation(result, operator as BinaryOperationToken, second)
+                    operator = tokenizer.get()
+                }
+                else -> break
             }
-            else -> first
         }
+        return result
     }
 
     fun parse(): Operator {
+        tokenizer.next()
         return parsePlusMinus()
     }
 }

@@ -30,6 +30,7 @@ class Tokenizer(private val s: String) {
                     throw ParseException("Found correctless subsequence", currentPosition - 1)
                 }
                 token = result.second!!
+                return
             }
         }
         throw ParseException("Can't find token to this character: ${s[currentPosition]}", currentPosition)
