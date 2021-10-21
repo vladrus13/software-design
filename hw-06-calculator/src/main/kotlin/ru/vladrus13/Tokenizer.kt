@@ -4,6 +4,11 @@ import ru.vladrus13.bean.Terminal
 import ru.vladrus13.bean.Token
 import java.text.ParseException
 
+/**
+ * Tokenizer. Tokenize the input string to tokens
+ *
+ * @property s input string
+ */
 class Tokenizer(private val s: String) {
 
     private var token: Token? = null

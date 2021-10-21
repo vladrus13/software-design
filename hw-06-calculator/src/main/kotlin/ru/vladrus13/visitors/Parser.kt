@@ -4,6 +4,11 @@ import ru.vladrus13.Tokenizer
 import ru.vladrus13.bean.*
 import ru.vladrus13.bean.Number
 
+/**
+ * Parser, which task is parsing tokenizer token stream
+ *
+ * @property tokenizer
+ */
 class Parser(private val tokenizer: Tokenizer) {
 
     private fun parseMono(): Operator {

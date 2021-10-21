@@ -5,6 +5,10 @@ import ru.vladrus13.bean.NumberToken
 import ru.vladrus13.bean.Operator
 import java.util.*
 
+/**
+ * Calculator visitor. Calculates result of the expression
+ *
+ */
 class CalcVisitor {
     companion object {
         fun calc(operator: Operator) : Long {

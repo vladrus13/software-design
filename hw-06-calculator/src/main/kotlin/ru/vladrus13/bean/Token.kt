@@ -1,6 +1,9 @@
 package ru.vladrus13.bean
 
-
+/**
+ * Terminal. Mono point of expression
+ *
+ */
 enum class Terminal {
     PLUS {
         override fun isStarts(c: Char): Boolean = c == '+'
@@ -55,10 +58,18 @@ enum class Terminal {
     abstract fun takeToken(s: String, position: Int): Pair<Int, Token?>
 }
 
+/**
+ * Token is like terminal but with data
+ *
+ */
 interface Token {
     override fun toString(): String
 }
 
+/**
+ * Binary operation
+ *
+ */
 abstract class BinaryOperationToken : Token {
     abstract fun getOperator(): String
 
