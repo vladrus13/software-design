@@ -1,7 +1,6 @@
 package program.server.servlet;
 
 import aspects.AspectProfile;
-import program.Fibonacci;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 public class SortServlet extends Servlet {
 
@@ -22,7 +21,7 @@ public class SortServlet extends Servlet {
             list.add(Integer.parseInt(arg));
         }
         Collections.sort(list);
-        List<String> listString = new ArrayList<>();
+        Collection<String> listString = new ArrayList<>();
         for (Integer i : list) {
             listString.add(String.valueOf(i));
         }

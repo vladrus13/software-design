@@ -2,8 +2,6 @@ package aspects;
 
 import guru.nidi.graphviz.model.Factory;
 import guru.nidi.graphviz.model.MutableNode;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,6 +9,22 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Euler {
 
     public static final ConcurrentHashMap<String, Vertex> parents = new ConcurrentHashMap<>();
+
+    public static void into(String login, String mark) {
+        if (!parents.containsKey(login)) {
+            parents.put(login, Vertex.createVertex(null, login));
+        }
+        Vertex vertex = parents.get(login);
+        Vertex newVertex = Vertex.createVertex(vertex, mark);
+        vertex.add(newVertex);
+        parents.put(login, newVertex);
+    }
+
+    public static void onto(String login, long time) {
+        Vertex vertex = parents.get(login);
+        vertex.time = time;
+        parents.put(login, vertex.parent);
+    }
 
     public static class Vertex {
         private final ArrayList<Vertex> childs;
@@ -47,21 +61,5 @@ public class Euler {
         public Vertex getParent() {
             return parent;
         }
-    }
-
-    public static void into(String login, String mark) {
-        if (!parents.containsKey(login)) {
-            parents.put(login, Vertex.createVertex(null, login));
-        }
-        Vertex vertex = parents.get(login);
-        Vertex newVertex = Vertex.createVertex(vertex, mark);
-        vertex.add(newVertex);
-        parents.put(login, newVertex);
-    }
-
-    public static void onto(String login, long time) {
-        Vertex vertex = parents.get(login);
-        vertex.time = time;
-        parents.put(login, vertex.parent);
     }
 }

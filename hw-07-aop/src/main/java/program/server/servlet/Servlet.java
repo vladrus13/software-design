@@ -1,7 +1,5 @@
 package program.server.servlet;
 
-import aspects.AspectProfile;
-
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
