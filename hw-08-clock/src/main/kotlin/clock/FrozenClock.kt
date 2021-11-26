@@ -15,7 +15,7 @@ class FrozenClock(private var froze: Instant) : Clock {
      *
      * @param time how much add
      */
-    fun addSeconds(time : Long) {
+    fun addSeconds(time: Long) {
         froze = froze.plusSeconds(time)
     }
 }

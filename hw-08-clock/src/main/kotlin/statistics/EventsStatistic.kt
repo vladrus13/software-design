@@ -10,7 +10,7 @@ interface EventsStatistic {
      *
      * @param name name of event
      */
-    fun incEvent(name : String)
+    fun incEvent(name: String)
 
     /**
      * Get RPM of event
@@ -18,14 +18,14 @@ interface EventsStatistic {
      * @param name name of event
      * @return RPM of event
      */
-    fun getEventByStatisticByName(name : String) : Double
+    fun getEventByStatisticByName(name: String): Double
 
     /**
      * Get all RPMs of events
      *
      * @return
      */
-    fun getAllEventStatistic() : Map<String, Double>
+    fun getAllEventStatistic(): Map<String, Double>
 
     /**
      * Print statistic to console
