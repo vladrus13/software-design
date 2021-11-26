@@ -11,15 +11,6 @@ class FrozenClock(private var froze: Instant) : Clock {
     override fun now(): Instant = froze
 
     /**
-     * Set time of clock
-     *
-     * @param newFroze new time
-     */
-    fun set(newFroze: Instant) {
-        froze = newFroze
-    }
-
-    /**
      * Add seconds to time
      *
      * @param time how much add
