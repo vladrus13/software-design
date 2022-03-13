@@ -13,6 +13,13 @@ repositories {
 }
 
 dependencies {
+    implementation(project("common"))
+    implementation(project("manager-admin"))
+    implementation(project("event-store"))
+    implementation(project("report-service"))
+    implementation(project("turnstile"))
+    implementation("org.litote.kmongo:kmongo:4.5.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.3")
     testImplementation(kotlin("test"))
 }
 
