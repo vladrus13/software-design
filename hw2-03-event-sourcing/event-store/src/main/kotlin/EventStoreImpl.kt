@@ -10,6 +10,7 @@ import ru.vladrus13.interfaces.ReportService
 import kotlin.time.Duration
 import java.time.Instant
 import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 import kotlin.time.toJavaDuration
 
 class EventStoreImpl(val reportService: ReportService) : EventStore {
@@ -45,7 +46,7 @@ class EventStoreImpl(val reportService: ReportService) : EventStore {
                 if (last == null) {
                     User(it.key, null)
                 } else {
-                    User(it.key, last.time.plus(last.duration.toJavaDuration()))
+                    User(it.key, last.time.plus(java.time.Duration.of(last.durationMilliseconds, ChronoUnit.MILLIS)))
                 }
             }
             .toMutableMap()
@@ -59,10 +60,10 @@ class EventStoreImpl(val reportService: ReportService) : EventStore {
         return id
     }
 
-    override fun updateUser(id: Long, time: Duration, event: Instant) {
+    override fun updateUser(id: Long, time: Long, event: Instant) {
         val ticket = TicketEvent.UpdateTicketEvent(id, event, time)
         reportService.insertOne(ticket)
-        users[id] = User(id, event.plus(ticket.duration.toJavaDuration()))
+        users[id] = User(id, event.plus(java.time.Duration.of(ticket.durationMilliseconds, ChronoUnit.MILLIS)))
     }
 
     override fun getUser(userId: Long): User? = users[userId]

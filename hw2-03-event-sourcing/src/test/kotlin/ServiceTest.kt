@@ -76,7 +76,7 @@ class ServiceTest {
         assert(state.turnstiles.first().isAccepted(id, startTime.plus(Duration.of(1, ChronoUnit.SECONDS))))
         state.managers.first().update(
             id,
-            Duration.of(10, ChronoUnit.SECONDS).toKotlinDuration(),
+            10000,
             startTime.plus(Duration.of(2, ChronoUnit.SECONDS))
         )
         assert(!state.turnstiles.first().isAccepted(id, startTime.plus(Duration.of(3, ChronoUnit.SECONDS))))
@@ -99,21 +99,21 @@ class ServiceTest {
         users.forEach {
             state.managers.first().update(
                 it,
-                Duration.of(10, ChronoUnit.SECONDS).toKotlinDuration(),
+                10000,
                 startTime.plus(Duration.of(2, ChronoUnit.SECONDS))
             )
         }
         (0..100).forEach {
             state.turnstiles[it % 10].enter(
-                10L - (it % 10),
+                it % 10L,
                 true,
                 startTime.plus(Duration.of(1, ChronoUnit.SECONDS)))
             state.turnstiles[it % 10].enter(
-                10L - (it % 10),
+                it % 10L,
                 false,
                 startTime.plus(Duration.of(1, ChronoUnit.SECONDS)))
         }
-        assertEquals(10.0, ReportServiceImpl().avgCount())
-        assertEquals(1.0, ReportServiceImpl().avgDuration())
+        assertEquals(4.5, ReportServiceImpl().avgCount())
+        assertEquals(4.5, ReportServiceImpl().avgDuration())
     }
 }

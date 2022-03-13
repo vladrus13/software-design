@@ -10,7 +10,7 @@ sealed class TicketEvent(val userId: Long, val type: TicketEventType) {
 
     class AddTicketEvent(userId: Long, val time: Instant) : TicketEvent(userId, TicketEventType.ADD)
 
-    class UpdateTicketEvent(userId: Long, val time : Instant, val duration: Duration) : TicketEvent(userId, TicketEventType.UPDATE)
+    class UpdateTicketEvent(userId: Long, val time : Instant, val durationMilliseconds: Long) : TicketEvent(userId, TicketEventType.UPDATE)
 
     class UseTicketEvent(userId: Long, val time: Instant, val isEnter: Boolean) :
         TicketEvent(userId, TicketEventType.USE)

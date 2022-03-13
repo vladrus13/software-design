@@ -77,8 +77,9 @@ class ReportServiceImpl : ReportService {
     override fun avgDuration(): Double =
         eventsCollection
             .find()
-            .filterIsInstance<TicketEvent.UseTicketEvent>()
             .toList()
+            .map { ps(it) }
+            .filterIsInstance<TicketEvent.UseTicketEvent>()
             .groupBy { it.userId }
             .mapValues { entry ->
                 var enterDistance: Instant? = null
@@ -90,7 +91,7 @@ class ReportServiceImpl : ReportService {
                         }
 
                         false -> {
-                            mulisecondsSum += Duration.between(d.time, enterDistance!!).seconds
+                            mulisecondsSum += Duration.between(d.time, enterDistance!!).toMillis() / 1000
                         }
                     }
                 }

@@ -7,5 +7,5 @@ import kotlin.time.Duration
 interface ManagerAdmin {
     fun getUserById(id : Long) : User?
     fun newUser(event : Instant = Instant.now()) : Long?
-    fun update(id : Long, time : Duration, event : Instant = Instant.now())
+    fun update(id : Long, time : Long, event : Instant = Instant.now())
 }

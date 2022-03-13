@@ -18,7 +18,7 @@ class ManagerAdminImpl : ManagerAdmin {
     override fun newUser(event : Instant) : Long? =
         eventStore?.newUser(event)
 
-    override fun update(id: Long, time: Duration, event : Instant) {
+    override fun update(id: Long, time: Long, event : Instant) {
         if (eventStore != null) eventStore!!.updateUser(id, time, event)
     }
 }
