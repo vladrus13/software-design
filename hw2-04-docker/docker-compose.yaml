@@ -1,0 +1,10 @@
+version: "3"
+services:
+  temp:
+    image:
+      hehe
+    build: .
+    network_mode:
+      host
+    ports:
+      - "8080:8080"
